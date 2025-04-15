@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Upload & Go to Stack</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div id="drop" class="drop-area">Drag & Drop Your Images Here</div>
@@ -38,7 +39,7 @@
       }
 
       sessionStorage.setItem("images", JSON.stringify(imageData));
-      window.location.href = "display_stack_after_drop.html";
+      window.location.href = "display.html"; // ✅ 같은 창에서 이동
     };
   </script>
 </body>

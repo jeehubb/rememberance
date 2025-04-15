@@ -13,9 +13,7 @@
     const stack = document.getElementById('stack');
     const storedImages = JSON.parse(sessionStorage.getItem('images') || "[]");
 
-    // 업로드 시간 순 정렬
     storedImages.sort((a, b) => a.modified - b.modified);
-
     let index = 0;
 
     function showNext() {
@@ -25,7 +23,6 @@
       const el = document.createElement('img');
       el.src = data.src;
 
-      // 초기 스타일 (투명도 0)
       el.style.opacity = "0";
       el.style.transform = `
         translateX(${index * 10}px)
@@ -35,15 +32,12 @@
       el.style.zIndex = index;
       el.style.transition = "transform 0.6s ease, opacity 0.6s ease";
 
-      // 부드럽게 나타남
       setTimeout(() => {
         el.style.opacity = "1";
       }, 10);
 
       stack.appendChild(el);
       index++;
-
-      // 0.2초 간격으로 다음 이미지 삽입
       setTimeout(showNext, 200);
     }
 
