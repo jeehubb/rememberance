@@ -8,11 +8,12 @@ body {
   justify-content: center;
   min-height: 100vh;
   perspective: 3000px;
+  overflow: auto; /* ✅ 스크롤 가능하도록 */
 }
 
 .drop-area {
   width: 400px;
-  height: 150px;
+  height: 200px;
   border: 2px dashed #aaa;
   display: flex;
   align-items: center;
@@ -30,10 +31,12 @@ body {
 
 .stack {
   position: relative;
-  width: max-content;
-  height: auto;
+  display: block;
+  height: 100px;
+  width: max-content; /* ✅ 이미지 수에 따라 자동 확장 */
   transform-style: preserve-3d;
   transform: rotateY(-10deg);
+  padding: 40px; /* 여백 */
 }
 
 .stack img {
@@ -42,7 +45,7 @@ body {
   height: 100px;
   object-fit: cover;
   outline: 1px solid rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease;
 }
 
 /* ✅ Hover 시 위로 띄우기 */
