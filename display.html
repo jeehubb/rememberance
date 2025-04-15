@@ -9,7 +9,29 @@
 <body>
   <div class="stack" id="stack"></div>
 
-  <script>
+  
+<div class="zoom-wrapper" id="zoomWrapper">
+  <div class="stack" id="stack"></div>
+</div>
+
+<script>
+  const zoomWrapper = document.getElementById("zoomWrapper");
+  let zoomLevel = 1;
+
+  document.addEventListener("wheel", function(e) {
+    if (e.ctrlKey) {
+      e.preventDefault(); // 기본 브라우저 확대 방지
+
+      if (e.deltaY < 0) {
+        zoomLevel *= 1.05;
+      } else {
+        zoomLevel *= 0.95;
+      }
+
+      zoomWrapper.style.transform = `scale(${zoomLevel})`;
+    }
+  }, { passive: false });
+
     const stack = document.getElementById('stack');
     const storedImages = JSON.parse(sessionStorage.getItem('images') || "[]");
 
