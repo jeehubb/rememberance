@@ -2,40 +2,26 @@ body {
   margin: 0;
   padding: 0;
   background: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: auto;
   perspective: 3000px;
-  overflow: auto; /* ✅ 스크롤 가능하도록 */
 }
 
-.drop-area {
-  width: 400px;
-  height: 200px;
-  border: 2px dashed #aaa;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #666;
-  transition: background 0.2s ease;
-  margin: 0 auto;
-}
-
-.drop-area.hover {
-  background: #eee;
-  border-color: #333;
+.zoom-wrapper {
+  width: max-content;
+  min-height: 100vh;
+  transform-origin: top left;
+  transition: transform 0.2s ease;
 }
 
 .stack {
   position: relative;
-  display: block;
   width: max-content;
   transform-style: preserve-3d;
-  transform: translateY(50vh) translateY(-50%) rotateY(-10deg); /* 세로 중앙 정렬 */
+  transform: translateY(20vh) rotateY(-10deg);  /* 👈 아래쪽에 보이게 */
   padding: 40px;
+  min-width: 100vw;
+  min-height: 100vh;  /* 👈 반드시 필요: 스크롤 생김 */
 }
 
 .stack img {
@@ -47,8 +33,8 @@ body {
   transition: transform 0.5s ease;
 }
 
-/* ✅ Hover 시 위로 띄우기 */
 .stack img:hover {
   transform: translateY(-50px);
   z-index: 100;
 }
+
