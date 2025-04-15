@@ -4,13 +4,12 @@ body {
   background: #fff;
   height: 100vh;
   overflow: auto;
-  perspective: 2000px; /* 📌 관찰자 시점 */
+  perspective: 3000px;
 }
 
 .zoom-wrapper {
-  transform-style: preserve-3d; /* 📌 3D 유지 */
-  min-height: 100vh;
   width: max-content;
+  min-height: 100vh;
   transform-origin: top left;
   transition: transform 0.2s ease;
 }
@@ -18,11 +17,10 @@ body {
 .stack {
   position: relative;
   width: max-content;
-  transform-style: preserve-3d;  /* 📌 3D 유지 */
-  transform: translateY(20vh) rotateY(-10deg); /* 📌 시점 기울기 */
+  min-height: 200vh; /* ✅ 세로 스크롤 확보 */
+  transform-style: preserve-3d;
+  transform: rotateY(-10deg);
   padding: 40px;
-  min-width: 100vw;
-  min-height: 100vh;
 }
 
 .stack img {
@@ -31,10 +29,9 @@ body {
   height: 100px;
   object-fit: cover;
   outline: 1px solid rgba(0, 0, 0, 0.2);
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 }
 
-/* Hover 시 튀어나오게 */
 .stack img:hover {
   transform: translateY(-50px) !important;
   z-index: 100;
