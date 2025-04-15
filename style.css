@@ -1,0 +1,28 @@
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  perspective: 3000px;
+}
+
+.stack {
+  position: relative;
+  width: max-content;
+  height: auto;
+  transform-style: preserve-3d;
+  transform: rotateY(-10deg);
+}
+
+.stack img {
+  position: absolute;
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  outline: 1px solid rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
