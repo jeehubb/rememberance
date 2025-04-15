@@ -17,11 +17,10 @@ body {
 .stack {
   position: relative;
   width: max-content;
+  min-height: 200vh; /* ✅ 세로 스크롤 확보 */
   transform-style: preserve-3d;
-  transform: translateY(20vh) rotateY(-10deg);  /* 👈 아래쪽에 보이게 */
+  transform: rotateY(-10deg);
   padding: 40px;
-  min-width: 100vw;
-  min-height: 100vh;  /* 👈 반드시 필요: 스크롤 생김 */
 }
 
 .stack img {
@@ -30,11 +29,11 @@ body {
   height: 100px;
   object-fit: cover;
   outline: 1px solid rgba(0, 0, 0, 0.2);
-  transition: transform 0.5s ease;
+  transition: transform 0.3s ease;
 }
 
 .stack img:hover {
-  transform: translateY(-50px);
+  transform: translateY(-50px) !important;
   z-index: 100;
 }
 
