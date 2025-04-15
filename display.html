@@ -7,33 +7,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="stack" id="stack"></div>
+  <div class="zoom-wrapper" id="zoomWrapper">
+    <div class="stack" id="stack"></div>
+  </div>
 
-  
-<div class="zoom-wrapper" id="zoomWrapper">
-  <div class="stack" id="stack"></div>
-</div>
+  <script>
+    const zoomWrapper = document.getElementById("zoomWrapper");
+    let zoomLevel = 1;
 
-<script>
-  const zoomWrapper = document.getElementById("zoomWrapper");
-  let zoomLevel = 1;
-
-  document.addEventListener("wheel", function(e) {
-    if (e.ctrlKey) {
-      e.preventDefault(); // 기본 브라우저 확대 방지
-
-      if (e.deltaY < 0) {
-        zoomLevel *= 1.05;
-      } else {
-        zoomLevel *= 0.95;
+    document.addEventListener("wheel", function(e) {
+      if (e.ctrlKey) {
+        e.preventDefault();
+        zoomLevel *= e.deltaY < 0 ? 1.05 : 0.95;
+        zoomWrapper.style.transform = `scale(${zoomLevel})`;
       }
+    }, { passive: false });
 
-      zoomWrapper.style.transform = `scale(${zoomLevel})`;
-    }
-  }, { passive: false });
-
-    const stack = document.getElementById('stack');
-    const storedImages = JSON.parse(sessionStorage.getItem('images') || "[]");
+    const stack = document.getElementById("stack");
+    const storedImages = JSON.parse(sessionStorage.getItem("images") || "[]");
 
     storedImages.sort((a, b) => a.modified - b.modified);
     let index = 0;
@@ -42,23 +33,20 @@
       if (index >= storedImages.length) return;
 
       const data = storedImages[index];
-      const el = document.createElement('img');
+      const el = document.createElement("img");
       el.src = data.src;
-
       el.style.opacity = "0";
       el.style.transform = `
-        translateX(${index * 10}px)
-        translateY(${-index * 5}px)
+        translateX(${index * 160}px)
+        translateY(0px)
         translateZ(${(storedImages.length - index) * 10}px)
       `;
       el.style.zIndex = index;
       el.style.transition = "transform 0.6s ease, opacity 0.6s ease";
 
-      setTimeout(() => {
-        el.style.opacity = "1";
-      }, 10);
-
+      setTimeout(() => { el.style.opacity = "1"; }, 10);
       stack.appendChild(el);
+
       index++;
       setTimeout(showNext, 200);
     }
