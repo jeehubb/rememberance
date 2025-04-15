@@ -6,24 +6,13 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="zoom-wrapper" id="zoomWrapper">
-    <div class="stack" id="stack"></div>
-  </div>
+  <div class="stack" id="stack"></div>
 
   <script>
-    const zoomWrapper = document.getElementById("zoomWrapper");
-    let zoomLevel = 1;
+    const stack = document.getElementById('stack');
+    const storedImages = JSON.parse(sessionStorage.getItem('images') || "[]");
 
-    document.addEventListener("wheel", function (e) {
-      if (e.ctrlKey) {
-        e.preventDefault();
-        zoomLevel *= e.deltaY < 0 ? 1.05 : 0.95;
-        zoomWrapper.style.transform = `scale(${zoomLevel})`;
-      }
-    }, { passive: false });
-
-    const stack = document.getElementById("stack");
-    const storedImages = JSON.parse(sessionStorage.getItem("images") || "[]");
+    // 업로드 시간 순 정렬
     storedImages.sort((a, b) => a.modified - b.modified);
 
     let index = 0;
@@ -32,24 +21,28 @@
       if (index >= storedImages.length) return;
 
       const data = storedImages[index];
-      const el = document.createElement("img");
+      const el = document.createElement('img');
       el.src = data.src;
 
+      // 초기 스타일 (투명도 0)
       el.style.opacity = "0";
       el.style.transform = `
-        translateX(${index * 160}px)
-        translateY(0px)
+        translateX(${index * 10}px)
+        translateY(${-index * 5}px)
         translateZ(${(storedImages.length - index) * 10}px)
       `;
       el.style.zIndex = index;
       el.style.transition = "transform 0.6s ease, opacity 0.6s ease";
 
+      // 부드럽게 나타남
       setTimeout(() => {
         el.style.opacity = "1";
       }, 10);
 
       stack.appendChild(el);
       index++;
+
+      // 0.2초 간격으로 다음 이미지 삽입
       setTimeout(showNext, 200);
     }
 
@@ -58,8 +51,3 @@
 </body>
 </html>
 
-
-    showNext();
-  </script>
-</body>
-</html>
