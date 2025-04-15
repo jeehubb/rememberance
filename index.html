@@ -3,29 +3,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Image Upload</title>
+  <title>Upload & Go to Stack</title>
 </head>
 <body>
-  <h2>이미지 업로드</h2>
-  <input type="file" id="imageInput" multiple accept="image/*" />
+  <div id="drop" class="drop-area">Drag & Drop Your Images Here</div>
 
   <script>
-    document.getElementById("imageInput").addEventListener("change", function (e) {
-      const files = [...e.target.files];
+    const drop = document.getElementById('drop');
+
+    drop.ondragover = function(e) {
+      e.preventDefault();
+      drop.classList.add('hover');
+    };
+
+    drop.ondragleave = function() {
+      drop.classList.remove('hover');
+    };
+
+    drop.ondrop = function(e) {
+      e.preventDefault();
+      drop.classList.remove('hover');
+
+      const files = e.dataTransfer.files;
       const imageData = [];
 
-      files.forEach(file => {
-        const objectUrl = URL.createObjectURL(file);
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const url = URL.createObjectURL(file);
         imageData.push({
-          src: objectUrl,
+          src: url,
           name: file.name,
           modified: file.lastModified
         });
-      });
+      }
 
-      sessionStorage.setItem('images', JSON.stringify(imageData));
-      window.location.href = "display.html";
-    });
+      sessionStorage.setItem("images", JSON.stringify(imageData));
+      window.location.href = "display_stack_after_drop.html";
+    };
   </script>
 </body>
 </html>

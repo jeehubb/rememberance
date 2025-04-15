@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Stacked Images Display</title>
+  <title>Stacked View</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -14,24 +14,23 @@
     const storedImages = JSON.parse(sessionStorage.getItem('images') || "[]");
 
     storedImages.sort((a, b) => a.modified - b.modified);
-
     let index = 0;
 
-    function addNextImage() {
+    function showNext() {
       if (index >= storedImages.length) return;
 
-      const imgData = storedImages[index];
+      const data = storedImages[index];
       const el = document.createElement('img');
-      el.src = imgData.src;
+      el.src = data.src;
 
+      el.style.opacity = "0";
       el.style.transform = `
         translateX(${index * 10}px)
         translateY(${-index * 5}px)
         translateZ(${(storedImages.length - index) * 10}px)
       `;
-      el.style.zIndex = String(index);
+      el.style.zIndex = index;
       el.style.transition = "transform 0.6s ease, opacity 0.6s ease";
-      el.style.opacity = "0";
 
       setTimeout(() => {
         el.style.opacity = "1";
@@ -39,11 +38,10 @@
 
       stack.appendChild(el);
       index++;
-
-      setTimeout(addNextImage, 200); // 0.2초 간격으로 하나씩 추가
+      setTimeout(showNext, 200);
     }
 
-    addNextImage();
+    showNext();
   </script>
 </body>
 </html>
