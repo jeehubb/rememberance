@@ -32,12 +32,10 @@ body {
 .stack {
   position: relative;
   display: block;
-  height: 100px;
-  width: max-content; /* ✅ 이미지 수에 따라 자동 확장 */
-  min-height: 200vh; /* ✅ 세로 스크롤 확보 */
+  width: max-content;
   transform-style: preserve-3d;
-  transform: rotateY(-10deg);
-  padding: 40px; /* 여백 */
+  transform: translateY(50vh) translateY(-50%) rotateY(-10deg); /* 세로 중앙 정렬 */
+  padding: 40px;
 }
 
 .stack img {
